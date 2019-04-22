@@ -12,8 +12,7 @@ eoi=$(grep -abo $'\xff\xd9' "$1" | cut -f1 -d:)
 cp "$1" "$2"
 for i in {1..5}; do
 	cp "$1" "$1-glitch-$i"
-	for j in {1..5}; do
-		pos=$(shuf -i $sos-$eoi -n 1)
+	for pos in $(shuf -i $sos-$eoi -n 5); do
 		printf '\x00' | dd of="$1-glitch-$i" conv=notrunc bs=1 seek=$pos
 	done
 done
